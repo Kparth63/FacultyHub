@@ -1,0 +1,6 @@
+node_modules/
+.env
+templates/views/otpverified.hbs
+src/routers/otpverified.js
+package-lock.json
+.gitignore
