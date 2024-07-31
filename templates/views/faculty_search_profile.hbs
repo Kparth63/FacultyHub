@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FacultyHub</title>
+    <link rel="stylesheet" href="../css/faculty_search_profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/faculty_search_profile.css">
+    <!--  <script defer src="active.js"></script> -->
+</head>
+
+<body>
+    {{>header}}
+
+    <main>
+        <h1>Faculty Details of {{faculty.institute}}</h1>
+
+        <div class="wrapper">
+            <div class="user-card">
+                <div class="user-card-img">
+                    <img alt="Faculty Image" class="img-fluid" id="img1"
+                        src="data:{{faculty.image.contentType}};base64,{{faculty.image.data}}"
+                        onerror="faculty.onerror=null; faculty.src='https://www.bing.com/images/search?q=blank%20profile%20image&FORM=IQFRBA&id=E9A45CA64F9637C3256BDC7FD0943D2B5517A4F3'">
+                    </img>
+                </div>
+                <div class="user-card-info">
+                    <h2>Faculty Name: {{faculty.name}} </h2>
+                    <p><span>Institute: {{faculty.institute}}</span></p>
+                    {{#if faculty.department}}
+                        <p><span>Deaprtment: {{faculty.department}}</span></p>
+                    {{/if}}
+                    <p><span>Email-address: {{faculty.email}}</span> </p>
+                    <p><span>Contact No: {{faculty.contactNo}} </span></p>
+                    <p><span>Address: {{faculty.address}} </span></p>
+                    {{#if faculty.website}}
+                        <p><span>Website: <a href="{{faculty.website}}">{{faculty.website}}</a></span></p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="tab_box">
+                <button class="tab_btn">Education</button>
+                {{#if faculty.coursesTaught}}
+                    <button class="tab_btn">Teachings</button>
+                {{/if}}
+                {{#if faculty.specialization}}
+                    <button class="tab_btn">Specializations</button>
+                {{/if}}
+                {{#if faculty.publications}}
+                    <button class="tab_btn">publications</button>
+                {{/if}}
+                {{#if faculty.internship}}
+                    <button class="tab_btn">Internships</button>
+                {{/if}}
+
+            </div>
+            <div class="content_box">
+                <div class="content">
+                    <b>Education:</b>
+                    <ul>
+                        <li>{{faculty.education}}</li>
+                    </ul>
+                </div>
+                {{#if faculty.coursesTaught}}
+                    <div class="content">
+                        <b>Teachings:</b>
+                        <ul>
+                            <li>{{faculty.coursesTaught}}</li>
+                        </ul>
+                    </div>
+                {{/if}}
+
+                {{#if faculty.specialization}}
+                    <div class="content">
+                        <b>Field of specialization:</b>
+                        <ul>
+                            <li>{{faculty.specialization}}</li>
+                        </ul>
+                    </div>
+                {{/if}}
+
+                {{#if faculty.publications}}
+                    <div class="content">
+                        <b>Publications:</b>
+                        <ul>
+                            <li>{{faculty.publications}}</li>
+                        </ul>
+                    </div>
+                {{/if}}
+
+                {{#if faculty.internship}}
+                    <div class="content">
+                        <h2>Internships</h2>
+                        {{#each faculty.internship}}
+                            <div class="content1">
+                                <div class="In_card">
+                                    <div class="imgBx">
+                                        <img src="../../images/OIP.jpeg" alt="">
+                                    </div>
+                                    <div class="details">
+
+                                        <h2>{{this.name}} <a href="mailto:{{../profile.email}}">
+                                                <img src="../../images/avatar.png" alt=""></a><br>
+                                            <span>{{../profile.name}} </span>
+                                        </h2>
+                                        <h2>Internships Details</h2>
+                                        <!-- <button onclick="removeIntership('/faculty-profile/remove-internship/{{this._id}}')"
+                                        class="btn1"><i class="fa fa-trash"></i></button> -->
+                                        <p><strong>Field:</strong>{{this.field}}</p>
+                                        <p><strong>Position:</strong>{{this.position}}</p>
+                                        <p><strong>Duration:</strong> {{this.duration}}</p>
+                                        <p><strong>Description:</strong>{{this.description}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <p>{{this}}</p> {{!-- frontend part --}} -->
+                        {{/each}}
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+        </div>
+
+        <script>
+            const tabs = document.querySelectorAll('.tab_btn');
+            const all_content = document.querySelectorAll('.content');
+
+
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', (e) => {
+                    tabs.forEach(tab => { tab.classList.remove('active') });
+                    tab.classList.add('active');
+
+                    all_content.forEach(content => { content.classList.remove('active') })
+                    all_content[index].classList.add('active');
+
+                })
+            })
+
+        </script>
+    </main>
+
+    {{>footer}}
+</body>
+
+</html>
